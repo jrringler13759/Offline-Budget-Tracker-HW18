@@ -1,5 +1,8 @@
 let transactions = [];
 let myChart;
+let chartCard = document.getElementById("chartCard");
+
+chartCard.classList.add("d-none")
 
 fetch("/api/transaction")
   .then(response => {
@@ -71,7 +74,7 @@ function populateChart() {
         datasets: [{
             label: "Total Over Time",
             fill: true,
-            backgroundColor: "#6666ff",
+            backgroundColor: "#50c9ce",
             data
         }]
     }
@@ -79,6 +82,7 @@ function populateChart() {
 }
 
 function sendTransaction(isAdding) {
+  chartCard.classList.remove("d-none");
   let nameEl = document.querySelector("#t-name");
   let amountEl = document.querySelector("#t-amount");
   let errorEl = document.querySelector(".form .error");
@@ -111,6 +115,8 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
+  nameEl.value = "";
+  amountEl.value = "";
   
   // also send to server
   fetch("/api/transaction", {
@@ -121,7 +127,7 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
+  .then(response => { 
     return response.json();
   })
   .then(data => {
@@ -138,9 +144,7 @@ function sendTransaction(isAdding) {
     // fetch failed, so save in indexed db
     saveRecord(transaction);
 
-    // clear form
-    nameEl.value = "";
-    amountEl.value = "";
+  
   });
 }
 

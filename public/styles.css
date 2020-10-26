@@ -1,6 +1,7 @@
 body {
   font-size: 120%;
   font-family: Arial;
+  background-color: #DFFFAB;
 }
 
 button, input {
@@ -48,4 +49,12 @@ tr:nth-child(even) {
   overflow: auto;
   width: 90%;
   margin: 0 auto;
+}
+
+#chartWrap {
+  margin: 5px;
+}
+
+#myChart {
+  color: purple !important;
 }
